@@ -5,8 +5,9 @@ import threading
 
 chopstick_a = threading.Lock()
 chopstick_b = threading.Lock()
-chopstick_c = threading.Lock()
+print_lock = threading.Lock()
 sushi_count = 5000
+
 
 def philosopher(name, first_chopstick, second_chopstick):
     global sushi_count
@@ -17,11 +18,15 @@ def philosopher(name, first_chopstick, second_chopstick):
                 if sushi_count > 0:
                     sushi_count -= 1
                     sushi_eaten += 1
-                    print(name, 'took a piece! Sushi remaining:', sushi_count)
-    print(name, 'took', sushi_eaten, 'pieces')
+                    # print(name, 'took a piece! Sushi remaining:', sushi_count)
+    with print_lock:
+        print(name, 'took', sushi_eaten, 'pieces')
+
 
 if __name__ == '__main__':
-    for thread in range(50):
+    # if run many times, os tends to be steady, only first thread will eat all pieces
+    threads = 10
+    for thread in range(threads):
         threading.Thread(target=philosopher, args=('Barron', chopstick_a, chopstick_b)).start()
         threading.Thread(target=philosopher, args=('Olivia', chopstick_a, chopstick_b)).start()
         threading.Thread(target=philosopher, args=('Steve', chopstick_a, chopstick_b)).start()

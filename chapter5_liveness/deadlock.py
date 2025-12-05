@@ -24,4 +24,5 @@ def philosopher(name, first_chopstick, second_chopstick):
 if __name__ == '__main__':
     threading.Thread(target=philosopher, args=('Barron', chopstick_a, chopstick_b)).start()
     threading.Thread(target=philosopher, args=('Olivia', chopstick_b, chopstick_c)).start()
+    # threading.Thread(target=philosopher, args=('Steve', chopstick_c, chopstick_a)).start() # this will induce deadlock
     threading.Thread(target=philosopher, args=('Steve', chopstick_a, chopstick_c)).start()

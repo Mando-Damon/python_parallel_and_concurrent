@@ -35,3 +35,4 @@ if __name__ == '__main__':
     olivia.join()
     elapsed_time = time.perf_counter() - start_time
     print('Elapsed Time: {:.2f} seconds'.format(elapsed_time))
+    # notice the items_on_notepad result may varies in each run
